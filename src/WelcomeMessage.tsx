@@ -11,19 +11,18 @@ type Props = {
 // 関数コンポーネントはパスカルケースで名前を設定します。
 const WelcomeMessage = (props: Props) => {
   // いわゆる普通のロジックを記述する
-  const currentTime = new Date();
+  // const currentTime = new Date();
   const uncompletedCount = props.uncompletedCount;
-  const greeting =
-    currentTime.getHours() < 12
-    ? "おはようございます"
-    : currentTime.getHours() < 19 ? "こんにちは" : "こんばんは";
+  // const greeting =
+  //   currentTime.getHours() < 12
+  //   ? "おはようございます"
+  //   : currentTime.getHours() < 19 ? "こんにちは" : "こんばんは";
 
   //【重要!】JSX構文で描いた「JSX要素」を return で返す
   return (
-    <div className="text-blue-700">
-      welcome to TodoApp!<br/>
-      {greeting}、{props.name}さん。<br/>
-      {uncompletedCount ? `未完了のタスクが ${uncompletedCount} 個残っています。` : `未完了のタスクはありません。`}
+    <div className="text-2xl pb-5">
+      おかえりなさい、{props.name}さん。<br/>
+      {uncompletedCount ? `未完了のタスクが ${uncompletedCount}個 残っています。` : `未完了のタスクはありません。`}
     </div>
   );
 };

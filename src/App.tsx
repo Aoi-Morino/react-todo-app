@@ -7,7 +7,12 @@ import { v4 as uuid } from "uuid";
 import dayjs from "dayjs";
 import { twMerge } from "tailwind-merge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTriangleExclamation as triangleExclamationSolid
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrashCan as trashCanRegular
+} from "@fortawesome/free-regular-svg-icons";
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -44,8 +49,8 @@ const App = () => {
   const uncompletedCount = todos.filter((todo: Todo) => !todo.isDone).length; // 未完了タスクの数え上げ
 
   const isValidTodoName = (name: string): string => {
-    if (name.length < 2 || name.length > 32) {
-      return "2文字以上、32文字以内で入力してください";
+    if (name.length > 32) {
+      return "32文字以内で入力してください";
     } else {
       return "";
     }
@@ -59,16 +64,13 @@ const App = () => {
   const updateIsDone = (id: string, value: boolean) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
+        console.log(`${todo.name} : ${todo.isDone}`);
         return { ...todo, isDone: value }; // スプレッド構文
       } else {
         return todo;
       }
     });
-  setTodos(updatedTodos);};
-
-  // const updateNewTodoPriority = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setNewTodoPriority(Number(e.target.value)); // 数値型に変換
-  // };
+    setTodos(updatedTodos);};
 
   const updateDeadline = (e: React.ChangeEvent<HTMLInputElement>) => {
     const dt = e.target.value; // UIで日時が未設定のときは空文字列 "" が dt に格納される
@@ -96,8 +98,7 @@ const App = () => {
     }
     const newTodo: Todo = {
       id: uuid(),
-      // name: newTodoName === "" ? "新しいタスク" : newTodoName,
-      name:  newTodoName,
+      name: newTodoName === "" ? "新しいタスク" : newTodoName,
       isDone: false,
       priority: newTodoPriority,
       deadline: newTodoDeadline,
@@ -111,29 +112,34 @@ const App = () => {
   };
 
   return (
-    <div className="mx-4 mt-10 max-w-2xl md:mx-auto">
-      <h1 className="mb-4 text-2xl font-bold">TodoApp</h1>
+    <div className="mx-4 mt-10 max-w-4xl md:mx-auto">
+      <h1 className="py-5 flex justify-center border-gray-500 border-b-3 mb-4 text-blue-700 text-6xl font-bold">Welcome to TodoApp!</h1>
       <div className="mb-4">
         <WelcomeMessage
           name="寝屋川タヌキ"
           uncompletedCount={uncompletedCount}
         />
       </div>
-      <TodoList todos={todos} updateIsDone={updateIsDone} remove={remove} />
+      <div className="flex-col border-l-3 border-gray-500 pb-2 pl-3">
+        <div className="text-xl font-bold mb-3">
+          Tasks
+        </div>
+        <TodoList todos={todos} updateIsDone={updateIsDone} remove={remove} />
+      </div>
 
-      <div>
+      <div className="flex">
         <button
           type="button"
           onClick={removeCompletedTodos}
           className={
-            "mt-5 rounded-md bg-red-500 px-3 py-1 font-bold text-white hover:bg-red-600"
+            "mt-5 rounded-md bg-red-500 px-3 py-1 ml-auto font-bold text-white hover:bg-red-600"
           }
         >
-          完了済みのタスクを削除
+          完了済みのタスクを削除<FontAwesomeIcon icon={trashCanRegular} className="ml-1"/>
         </button>
       </div>
 
-      <div className="mt-5 space-y-2 rounded-md border p-3">
+      <div className="mt-5 space-y-2 rounded-md border-3 p-3">
         <h2 className="text-lg font-bold">新しいタスクの追加</h2>
         <div>
           <div className="flex items-center space-x-2">
@@ -146,16 +152,16 @@ const App = () => {
               value={newTodoName}
               onChange={updateNewTodoName}
               className={twMerge(
-                "grow rounded-md border p-2",
+                "grow rounded-md border-3 p-2",
                 newTodoNameError && "border-red-500 outline-red-500"
               )}
-              placeholder="2文字以上、32文字以内で入力してください"
+              placeholder="32文字以内で入力してください"
             />
           </div>
           {newTodoNameError && (
             <div className="ml-10 flex items-center space-x-1 text-sm font-bold text-red-500">
               <FontAwesomeIcon
-                icon={faTriangleExclamation}
+                icon={triangleExclamationSolid}
                 className="mr-0.5"
               />
               <div>{newTodoNameError}</div>
@@ -165,14 +171,14 @@ const App = () => {
 
         <div className="flex gap-5">
           <div className="font-bold">優先度</div>
-          {[1, 2, 3].map((value) => (
+          {["低", "中", "高"].map((value, index) => (
             <label key={value} className="flex items-center space-x-1">
               <input
                 id={`priority-${value}`}
                 name="priorityGroup"
                 type="radio"
-                value={value}
-                checked={newTodoPriority === value}
+                value={index+1}
+                checked={newTodoPriority === index + 1}
                 onChange={(e) => setNewTodoPriority(Number(e.target.value))}
               />
               <span>{value}</span>
@@ -193,7 +199,7 @@ const App = () => {
                 : ""
             }
             onChange={updateDeadline}
-            className="rounded-md border border-gray-400 px-2 py-0.5"
+            className="rounded-md border-3 px-2 py-0.5"
           />
         </div>
 

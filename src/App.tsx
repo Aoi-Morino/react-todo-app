@@ -54,7 +54,7 @@ const App = () => {
     }
   }, [todos, initialized]);
 
-  const uncompletedCount = todos.filter((todo: Todo) => !todo.isDone).length; // 未完了タスクの数え上げ
+  const uncompletedCount = todos.filter((todo: Todo) => !todo.isDone && !todo.deleted).length; // 未完了タスクの数え上げ
 
   // const openTrashCan = () => {
     

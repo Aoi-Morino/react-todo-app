@@ -2,7 +2,8 @@ import React from "react";
 import type { Todo } from "./types";
 import DateFormatter from "./DateFormatter";
 import RenderPriorityStars from "./RenderPriorityStars";
-import { borderPrColor } from "./PrColorMap";
+import DeadlineIsComing from "./DateCheck";
+import { borderPrColor, borderPrColorIsDone } from "./PrColorMap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheckSquare as checkSquareSolid
@@ -43,23 +44,27 @@ const TodoItem = (props: Props) => {
       <div
         className={twMerge(
           "rounded-md flex items-center border-3 px-3 py-2 grow bg-white",
-            borderPrColor[todo.priority] || ""
+            todo.isDone ? borderPrColorIsDone[todo.priority] || "" : borderPrColor[todo.priority] || ""
         )}
       >
         <div
           className={twMerge(
             "flex items-center border-r-3 pr-2 mr-2",
-            borderPrColor[todo.priority] || ""
+            todo.isDone ? borderPrColorIsDone[todo.priority] || "" : borderPrColor[todo.priority] || ""
           )}
         >
-          {RenderPriorityStars(todo.priority)}
+          {RenderPriorityStars(todo.priority, todo.isDone)}
         </div>
 
         <div className="flex flex-wrap items-baseline gap-x-2">
-          <div>
+          <div className={
+            todo.isDone ? "line-through text-gray-400" : ""
+          }>
             {todo.name}
           </div>
-          <div>
+          <div className={
+            todo.isDone ? " text-gray-400" : todo.deadline !== null && DeadlineIsComing(todo.deadline) ? "text-red-500 font-bold" : ""
+          }>
             期限: {todo.deadline ? DateFormatter(todo.deadline) : "なし"}
           </div>
         </div>

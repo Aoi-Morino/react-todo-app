@@ -1,4 +1,4 @@
-import { textPrColor } from "./PrColorMap";
+import { textPrColor, textPrColorIsDone } from "./PrColorMap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar as starSolid
@@ -9,7 +9,7 @@ import {
 // import { twMerge } from "tailwind-merge";
 // import { text } from "@fortawesome/fontawesome-svg-core";
 
-const renderPriorityStars = (priority: number) => {
+const renderPriorityStars = (priority: number, isDone: boolean) => {
   const totalStars = 3;
 
   return (Array.from({ length: totalStars }).map((_, index) => {
@@ -19,7 +19,7 @@ const renderPriorityStars = (priority: number) => {
         key={index}
         icon={isActive ? starSolid : starRegular}
         className={
-          textPrColor[priority] || ""
+          isDone ? textPrColorIsDone[priority] || "" : textPrColor[priority] || ""
         }
       />
     );

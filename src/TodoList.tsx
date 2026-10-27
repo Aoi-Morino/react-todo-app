@@ -9,6 +9,9 @@ type Props = {
 };
 
 const TodoList = (props: Props) => {
+  // 削除したタスクの非表示
+  const todos = [...props.todos].filter((todo) => !todo.deleted);
+
   // ソート処理
   // const todos = [...props.todos].sort((a, b) => {
   //   if (a.isDone !== b.isDone) {
@@ -21,7 +24,9 @@ const TodoList = (props: Props) => {
   //     return a.deadline.getTime() - b.deadline.getTime();
   //   }
   // });
-  const todos = props.todos;
+
+  // ソートやフィルターを行わない時用
+  // const todos = props.todos;
 
   if (todos.length === 0) {
     return (

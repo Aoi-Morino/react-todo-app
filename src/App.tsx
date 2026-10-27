@@ -7,6 +7,7 @@ import { v4 as uuid } from "uuid";
 import dayjs from "dayjs";
 import { twMerge } from "tailwind-merge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Modal from "./RenderModal";
 import {
   faTriangleExclamation as triangleExclamationSolid
 } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +24,13 @@ const App = () => {
 
   const [initialized, setInitialized] = useState(false);
   const localStorageKey = "TodoApp";
+
+  // 1. ポップアップの表示状態を管理するstate
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // 2. ポップアップを開く/閉じるための関数
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     const todoJsonStr = localStorage.getItem(localStorageKey);
@@ -47,6 +55,10 @@ const App = () => {
   }, [todos, initialized]);
 
   const uncompletedCount = todos.filter((todo: Todo) => !todo.isDone).length; // 未完了タスクの数え上げ
+
+  // const openTrashCan = () => {
+    
+  // }
 
   const isValidTodoName = (name: string): string => {
     if (name.length > 32) {
@@ -80,13 +92,17 @@ const App = () => {
 
   const removeCompletedTodos = () => {
     const isRemove = window.confirm("完了済みのタスクを削除しますか？") ;
-    const updatedTodos = isRemove ? todos.filter((todo) => !todo.isDone) : todos;
+    const updatedTodos = isRemove ? todos.map((todo) => {
+      return todo.isDone ? { ...todo, deleted: true } : todo;
+    }) : todos;
     setTodos(updatedTodos);
   };
 
   const remove = (id: string, name: string) => {
     const isRemove = window.confirm(`"${name}" を削除しますか？`)
-    const updatedTodos = isRemove ? todos.filter((todo) => todo.id !== id) : todos;
+    const updatedTodos = isRemove ? todos.map((todo) => {
+      return todo.id === id ? { ...todo, deleted: true } : todo;
+    }) : todos;
     setTodos(updatedTodos);
   };
 
@@ -102,6 +118,7 @@ const App = () => {
       isDone: false,
       priority: newTodoPriority,
       deadline: newTodoDeadline,
+      deleted: false
     };
     // スプレッド構文を使って、先頭に新タスクを追加した配列を作成
     const updatedTodos = [newTodo, ...todos];
@@ -113,6 +130,32 @@ const App = () => {
 
   return (
     <div className="mx-4 mt-10 max-w-4xl md:mx-auto">
+
+      <div className="fixed top-4 right-4 z-10">
+        <button
+          type="button"
+          onClick={openModal}
+          className={
+            "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-lg"
+          }
+        >
+          ゴミ箱<FontAwesomeIcon icon={trashCanRegular} className="ml-1"/>
+        </button>
+      </div>
+
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <h2 className="text-2xl font-bold mb-4">モーダルウィンドウ</h2>
+        <p className="mb-6">
+          これはポップアップのコンテンツです。
+          背景をクリックするか、下の閉じるボタンを押してください。
+        </p>
+        <div className="flex justify-end">
+          <button onClick={closeModal} className="bg-gray-500 hover:bg-gray-600">
+            閉じる
+          </button>
+        </div>
+      </Modal>
+
       <h1 className="py-5 flex justify-center border-gray-500 border-b-3 mb-4 text-blue-700 text-6xl font-bold">Welcome to TodoApp!</h1>
       <div className="mb-4">
         <WelcomeMessage

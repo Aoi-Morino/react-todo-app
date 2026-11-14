@@ -18,7 +18,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps ) => {
     >
       {/* モーダル本体 */}
       <div 
-        className="bg-white p-6 rounded-lg shadow-xl w-11/12 max-w-md"
+        className="bg-white p-6 rounded-lg shadow-xl w-11/12 max-w-4xl max-h-[80vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()} // モーダル内のクリックが背景に伝わらないようにする
       >
         {children}

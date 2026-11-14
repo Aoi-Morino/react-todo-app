@@ -17,7 +17,7 @@ import { twMerge } from "tailwind-merge";
 type Props = {
   todo: Todo;
   updateIsDone: (id: string, value: boolean) => void;
-  remove: (id: string, name: string) => void;
+  todoDiscard: (id: string, name: string) => void;
 };
 
 const TodoItem = (props: Props) => {
@@ -70,7 +70,7 @@ const TodoItem = (props: Props) => {
         </div>
 
         <button
-          onClick={() => props.remove(todo.id, todo.name)}
+          onClick={() => props.todoDiscard(todo.id, todo.name)}
           className="rounded-md bg-red-500 px-2 py-1 ml-auto text-sm font-bold text-white shrink-0 hover:bg-red-700"
         >
           削除<FontAwesomeIcon icon={trashCanRegular} className="ml-1"/>

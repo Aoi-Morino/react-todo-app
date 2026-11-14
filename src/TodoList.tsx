@@ -5,12 +5,15 @@ import TodoItem from "./TodoItem";
 type Props = {
   todos: Todo[];
   updateIsDone: (id: string, value: boolean) => void;
-  remove: (id: string, name: string) => void;
+  todoDiscard: (id: string, name: string) => void;
+  typeOfList: number; // 0: メイン, 1: ゴミ箱
 };
 
 const TodoList = (props: Props) => {
   // 削除したタスクの非表示
-  const todos = [...props.todos].filter((todo) => !todo.deleted);
+  let todos = [...props.todos];
+  if (props.typeOfList === 0) todos = todos.filter((todo) => !todo.removed);
+  else if (props.typeOfList === 1) todos = todos.filter((todo) => todo.removed);
 
   // ソート処理
   // const todos = [...props.todos].sort((a, b) => {
@@ -42,7 +45,7 @@ const TodoList = (props: Props) => {
         <TodoItem
           key={todo.id}
           todo={todo}
-          remove={props.remove}
+          todoDiscard={props.todoDiscard}
           updateIsDone={props.updateIsDone}
         />
       ))}

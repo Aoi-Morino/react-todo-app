@@ -87,17 +87,17 @@ const App = () => {
   };
 
   const removeCompletedTodos = () => {
-    const isRemove = window.confirm("完了済みのタスクを削除しますか？") ;
+    const isRemove = window.confirm("完了済みのタスクをゴミ箱に移動しますか？") ;
     const updatedTodos = isRemove ? todos.map((todo) => {
-      return todo.isDone ? { ...todo, deleted: true } : todo;
+      return todo.isDone ? { ...todo, removed: true } : todo;
     }) : todos;
     setTodos(updatedTodos);
   };
 
   const todoRem = (id: string, name: string) => {
-    const isRemove = window.confirm(`"${name}" を削除しますか？`)
+    const isRemove = window.confirm(`"${name}" をゴミ箱に移動しますか？`)
     const updatedTodos = isRemove ? todos.map((todo) => {
-      return todo.id === id ? { ...todo, deleted: true } : todo;
+      return todo.id === id ? { ...todo, removed: true } : todo;
     }) : todos;
     setTodos(updatedTodos);
   };
@@ -145,7 +145,6 @@ const App = () => {
         </button>
       </div>
 
-      {/* // TODO ゴミ箱 */}
       <Modal isOpen={isTrashCanOpen} onClose={closeTrashCan}>
         <h2 className="text-2xl font-bold mb-4">モーダルウィンドウ</h2>
         <p className="mb-6">
@@ -161,7 +160,6 @@ const App = () => {
         </div>
       </Modal>
 
-      {/* // TODO 大本はここ */}
       <h1 className="py-5 flex justify-center border-gray-500 border-b-3 mb-4 text-blue-700 text-6xl font-bold">Welcome to TodoApp!</h1>
       <div className="mb-4">
         <WelcomeMessage

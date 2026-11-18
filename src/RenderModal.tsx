@@ -1,6 +1,6 @@
 type ModalProps = {
   isOpen: boolean;
-  onClose: () => void; // 修正点：'void' から '() => void' へ
+  onClose: () => void;
   children: React.ReactNode;
 };
 

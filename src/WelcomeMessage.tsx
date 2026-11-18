@@ -15,9 +15,16 @@ const WelcomeMessage = (props: Props) => {
   //   ? "おはようございます"
   //   : currentTime.getHours() < 19 ? "こんにちは" : "こんばんは";
 
+  // return (
+  //   <div className="text-2xl pb-5">
+  //     おかえりなさい、{props.name}さん。<br/>
+  //     {uncompletedCount ? `未完了のタスクが ${uncompletedCount}個 残っています。` : `未完了のタスクはありません。`}
+  //   </div>
+  // );
+
   return (
     <div className="text-2xl pb-5">
-      おかえりなさい、{props.name}さん。<br/>
+      おかえりなさい。<br/>
       {uncompletedCount ? `未完了のタスクが ${uncompletedCount}個 残っています。` : `未完了のタスクはありません。`}
     </div>
   );

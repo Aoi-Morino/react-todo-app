@@ -1,33 +1,47 @@
-# TodoApp
+# マイオリジナルTodoApp
 
-React、TypeScript、Tailwind CSS を使用し、ローカルストレージでデータを永続化した「Todoアプリ」です。
+**公開ページ：** [GitHub Pages](https://aoi-morino.github.io/react-todo-app/)
+
+## 概要
+
+TypeScriptおよびReactの学習を目的として制作した「Todoアプリ」です。
+
+ブラウザ上で動作し、ローカルストレージを利用してデータを永続化しています。
+
+## 主な機能
+
+- タスクの追加
+  - 32文字以内で自由に名前を付けられる
+  - 3段階の優先度を選択可能
+  - 期限を自由に設定可能
+- タスクごとの色分け
+  - ユニバーサルデザインを意識した配色
+- ゴミ箱機能
+  - 削除したタスクを一度ゴミ箱に移動
+
+## 使用技術
+
+- 言語：**TypeScript**
+- ライブラリ：**React**
+- CSSフレームワーク：**Tailwind CSS**
 
 ## 開発履歴
 
-- 2025年10月23日：プロジェクト開始
-- 2025年11月17日：プロジェクト中断
-- 2026年10月23日：プロジェクト再開
+| 期間 | 内容 |
+| :-- | :-- |
+| 2025/10/23 ～ 2025/10/30 | 開発開始<br>基本機能の実装 |
+| 2025/10/30 ～ 2025/11/17 | オリジナルデザインの実装 |
+| 2025/11/17 ～ 2026/10/23 | 開発休止 |
+| 2026/10/23 ～ 2026/11/18 | 開発再開<br>ゴミ箱機能の設計と追加 |
+| 2026/11/18 | READMEの制作<br>GitHubへのPush |
 
-## ライセンス
+## 取り組み時間
 
-MIT License
+※ 基本機能およびオリジナルデザインの取り組み時間は、記録が残っていないため、当時の作業頻度から推定しています。
 
-Copyright (c) 2025 Yakumo.W
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+| 項目 | 時間 |
+| :-- | --: |
+| 基本機能 | 約6時間 |
+| オリジナルデザイン | 約36時間 |
+| ゴミ箱機能 | 5時間 |
+| **合計** | **約47時間** |
